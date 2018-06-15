@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.lvbowen.entity.InterfaceLimit;
 import com.lvbowen.service.InterfaceLimitService;
@@ -91,5 +92,11 @@ public class ComputeController {
 		}
 		return "调用次数超限！";
 	}
+	
+	@RequestMapping(value="/add2",method=RequestMethod.GET)
+    public String testServiceB(@RequestParam Integer a,@RequestParam Integer b){
+    	RestTemplate restTemplate=new RestTemplate();
+    	return restTemplate.getForObject("http://localhost:7074/add2?a="+a+"&b="+b, String.class);
+    }
 
 }

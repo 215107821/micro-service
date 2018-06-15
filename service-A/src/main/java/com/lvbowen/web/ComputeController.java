@@ -27,10 +27,15 @@ public class ComputeController {
     }
 
     //A服务调用B服务
-    @RequestMapping(value="testServiceB",method=RequestMethod.GET)
+    @RequestMapping(value="/testServiceB",method=RequestMethod.GET)
     public String testServiceB(@RequestParam Integer a,@RequestParam Integer b){
     	RestTemplate restTemplate=new RestTemplate();
-    	return restTemplate.getForObject("http://localhost:7075/add?a="+a+"&b="+b, String.class);
+    	return restTemplate.getForObject("http://localhost:7075/add2?a="+a+"&b="+b, String.class);
+    }
+    
+    @RequestMapping(value = "/add2" ,method = RequestMethod.GET)
+    public String add2(@RequestParam Integer a, @RequestParam Integer b) {
+        return "Service-A -> service-B -> Service-A add2 " + (a+b);
     }
     
 }
